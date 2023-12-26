@@ -139,12 +139,11 @@ class SiameseUUID:
         Returns:
             str: [description]
         """
-        length = min(self.siamese_length, len(str(data)))
         match data:
             case str():
-                result = self.siamese_function(data, length)
+                result = self.siamese_function(data)
             case UUID():
-                result = self.siamese_function(data.hex, length)
+                result = self.siamese_function(data.hex)
             case _:
                 raise TypeError(f"Unknown data type: {type(data)}")  # noqa: TRY003
         return result
@@ -195,23 +194,23 @@ if __name__ == "__main__":
     print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.URI))
     print("Siamese key: ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.SIAMESE))
     print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.ALL))
-    print("Validated 'LUNG342', 'DFFDFC': ", Siamese.validate_keys("LUNG342", "DFFDFC"))
-    print("Validated 'LUNG342', 'DFFDFD': ", Siamese.validate_keys("LUNG342", "DFFDFD"))
-    print("Validated 'LUNG341', 'DFFDFC': ", Siamese.validate_keys("LUNG341", "DFFDFC"))
+    print("Validated 'LUNG342', 'ABGZMV': ", Siamese.validate_keys("LUNG342", "ABGZMV"))
+    print("Validated 'LUNG342', 'ABGZMY': ", Siamese.validate_keys("LUNG342", "ABGZMY"))
+    print("Validated 'LUNG341', 'ABGZMV': ", Siamese.validate_keys("LUNG341", "ABGZMV"))
     print("\nExperected output:")
     print(
         """
         Proper UUID (uuid5):  05dff1df16ccf596b3d0950f5e90770b
         Proper UUID (uuid5):  example:05dff1df16ccf596b3d0950f5e90770b
         Proper UUID (uuid5):  http://example.org:8000/pid/05dff1df16ccf596b3d0950f5e90770b
-        Siamese key:  LUNG342-DFFDFC
+        Siamese key:  LUNG342-ABGZMV
         Proper UUID (uuid5):  SiameseTuple(uuid='05dff1df16ccf596b3d0950f5e90770b',
-                                            siamese_key='LUNG342-DFFDFC',
+                                            siamese_key='LUNG342-ABGZMV',
                                             curie='example:05dff1df16ccf596b3d0950f5e90770b',
                                             url='http://example.org:8000/pid/05dff1df16ccf596b3d0950f5e90770b')
-        Validated 'LUNG342', 'DFFDFC':  True
-        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG342, Right side: DFFDFD
-        Validated 'LUNG342', 'DFFDFD':  False
-        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG341, Right side: BBBFDF
-        Validated 'LUNG341', 'DFFDFC':  False"""
+        Validated 'LUNG342', 'ABGZMV':  True
+        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG342, Right side: ABGZMY
+        Validated 'LUNG342', 'ABGZMY':  False
+        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG341, Right side: ABGZMV
+        Validated 'LUNG341', 'ABGZMV':  False"""
     )
