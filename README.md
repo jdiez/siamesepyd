@@ -44,7 +44,3 @@ To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookie
 - Create a new tag in the form `*.*.*`.
 
 For more details, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/cicd/#how-to-trigger-a-release).
-
----
-
-Repository initiated with [fpgmaas/cookiecutter-poetry](https://github.com/fpgmaas/cookiecutter-poetry).
