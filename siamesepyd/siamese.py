@@ -23,15 +23,15 @@ __copyright__ = "Copyright 2021, AstraZeneca"
 __license__ = "Apache License 2.0"
 
 
-import hashlib
 from collections import namedtuple
 from enum import Enum
-from functools import partial
 from typing import Callable
-from uuid import NAMESPACE_OID, UUID, uuid5
+from uuid import UUID
 
 from loguru import logger
 from pydantic import BaseModel, HttpUrl
+
+from siamesepyd.hashing import hashlib_uuid
 
 
 class Uri(Enum):
@@ -74,7 +74,7 @@ class SiameseUUID:
 
     def __init__(
         self,
-        uuid_function: Callable = partial(uuid5, NAMESPACE_OID),
+        uuid_function: hashlib_uuid,  # Callable = partial(uuid5, NAMESPACE_OID),
         siamese_length: int = 6,
         key_seed: str = "",
         separator: str = "-",
@@ -185,35 +185,6 @@ class SiameseUUID:
                 case _:
                     raise TypeError(f"Unknown uri: {uri}")  # noqa: TRY003
         return res
-
-
-def hashlib_uuid(
-    data: bytes | str,
-    algorithm: str | None = "sha256",
-    salt: bytes | None = b"",
-    iterations: int | None = 10**6,
-    dklen: int | None = 16,
-) -> UUID:
-    """AI is creating summary for hahlib_implementation
-
-    Args:
-        data (bin, str): [description]
-        algorithm (bin, optional): [description]. Defaults to b'sha256'.
-        salt (bin, optional): [description]. Defaults to b''.
-        iterations (int, optional): [description]. Defaults to 10**6.
-        dklen (int, optional): [description]. Defaults to 16.
-
-    Returns:
-        uuid.UUID: [description]
-    """
-    match data:
-        case bytes():
-            pass
-        case str():
-            data = data.encode()
-        case _:
-            raise TypeError(f"Data should be a string, not: {data}, {type(data)}.")  # noqa: TRY003
-    return UUID(bytes=hashlib.pbkdf2_hmac(algorithm, data, salt, iterations, dklen))
 
 
 if __name__ == "__main__":
