@@ -285,23 +285,23 @@ if __name__ == "__main__":
     print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.URI))
     print("Siamese key: ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.SIAMESE))
     print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.ALL))
-    print("Validated 'LUNG342', 'BFDFDB': ", Siamese.validate_keys("LUNG342", "BFDFDB"))
-    print("Validated 'LUNG342', 'BFDFDC': ", Siamese.validate_keys("LUNG342", "BFDFDC"))
-    print("Validated 'LUNG341', 'BFDFDB': ", Siamese.validate_keys("LUNG341", "BFDFDB"))
+    print("Validated 'LUNG342', 'BBBFDF': ", Siamese.validate_keys("LUNG342", "BBBFDF"))
+    print("Validated 'LUNG342', 'BFDFDD': ", Siamese.validate_keys("LUNG342", "BFDFDD"))
+    print("Validated 'LUNG341', 'BBBFDF': ", Siamese.validate_keys("LUNG341", "BBBFDF"))
     print("\nExperected output:")
     print(
         """
         Proper UUID (uuid5):  3bb405076bf0533181726dfd92b89636
         Proper UUID (uuid5):  example:3bb405076bf0533181726dfd92b89636
         Proper UUID (uuid5):  http://example.org:8000/pid/3bb405076bf0533181726dfd92b89636
-        Siamese key:  LUNG342-BFDFDB
+        Siamese key:  LUNG342-BBBFDF
         Proper UUID (uuid5):  SiameseTuple(uuid='3bb405076bf0533181726dfd92b89636',
-                                            siamese_key='LUNG342-BFDFDB',
+                                            siamese_key='LUNG342-BBBFDF',
                                             curie='example:3bb405076bf0533181726dfd92b89636',
                                             url='http://example.org:8000/pid/3bb405076bf0533181726dfd92b89636')
-        Validated 'LUNG342', 'BFDFDB':  True
-        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG342, Right side: BFDFDC
-        Validated 'LUNG342', 'BFDFDC':  False
-        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG341, Right side: BFDFDB
-        Validated 'LUNG341', 'BFDFDB':  False"""
+        Validated 'LUNG342', 'BBBFDF':  True
+        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG342, Right side: BFDFDD
+        Validated 'LUNG342', 'BBBFDD':  False
+        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG341, Right side: BBBFDF
+        Validated 'LUNG341', 'BBBFDF':  False"""
     )
