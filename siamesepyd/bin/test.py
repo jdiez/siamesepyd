@@ -1,7 +1,7 @@
 """To test entry points later on.
 """
 
-from siamesepyd.core.shortids import MyUuidMetadataBaseModel, SiameseUUID
+from siamesepyd.core.siamese import MyUuidMetadataBaseModel, SiameseUUID
 
 
 def main():
