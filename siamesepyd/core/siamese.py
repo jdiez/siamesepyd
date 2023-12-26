@@ -31,8 +31,8 @@ from uuid import UUID
 from loguru import logger
 from pydantic import BaseModel, HttpUrl
 
-from siamesepyd.hashing import hashlib_uuid
-from siamesepyd.shortids import ShortFromUUID
+from siamesepyd.core.hashing import hashlib_uuid
+from siamesepyd.core.shortids import ShortFromUUID
 
 
 class Uri(Enum):
