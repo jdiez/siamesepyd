@@ -165,7 +165,6 @@ class SiameseUUID:
             g_key = self._siamese(data)
         except TypeError:
             logger.error("Metadata salt should be a string. {e!s}")
-
         else:
             try:
                 siamese_key = f"{metadata.salt}{self.separator}{g_key}"
