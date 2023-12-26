@@ -123,12 +123,7 @@ class SiameseUUID:
             bool: Keys validation or fail as boolean.
         """
         siamese_key = self._siamese(self._get_key(left_side))
-        if siamese_key == right_side:
-            res = True
-        else:
-            res = False
-            logger.error(f"Left side: {left_side}, Right side: {right_side}")
-        return res
+        return siamese_key == right_side
 
     def _siamese(self, data: str | UUID) -> str:
         """AI is creating summary for _siamese
