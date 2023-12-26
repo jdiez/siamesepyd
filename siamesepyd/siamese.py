@@ -147,7 +147,7 @@ class SiameseUUID:
         siamese_length: int = 6,
         key_seed: str = "",
         separator: str = "-",
-        siamese_function: Callable = lambda x, y: "".join([i.upper() for i in x if i.isalpha()][y:]),
+        siamese_function: Callable = lambda x, y: "".join([i.upper() for i in x if i.isalpha()][:y]),
     ) -> None:
         """AI is creating summary for __init__
 
