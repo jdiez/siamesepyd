@@ -32,6 +32,7 @@ from loguru import logger
 from pydantic import BaseModel, HttpUrl
 
 from siamesepyd.hashing import hashlib_uuid
+from siamesepyd.shortids import ShortFromUUID
 
 
 class Uri(Enum):
@@ -78,7 +79,8 @@ class SiameseUUID:
         siamese_length: int = 6,
         key_seed: str = "",
         separator: str = "-",
-        siamese_function: Callable = lambda x, y: "".join([i.upper() for i in x if i.isalpha()][:y]),
+        siamese_function: Callable = ShortFromUUID(),
+        # Callable = lambda x, y: "".join([i.upper() for i in x if i.isalpha()][:y]),
     ) -> None:
         """AI is creating summary for __init__
 
