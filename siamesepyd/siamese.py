@@ -30,7 +30,6 @@ from functools import partial
 from typing import Callable
 from uuid import NAMESPACE_OID, UUID, uuid5
 
-import blake3
 from loguru import logger
 from pydantic import BaseModel, HttpUrl
 
@@ -46,12 +45,6 @@ class Uri(Enum):
     URI = "uri"
     SIAMESE = "siamese"
     ALL = "all"
-
-
-class PID:
-    """Allow multiple local description or PID (PURL, ARK, etc ...)"""
-
-    pass
 
 
 class MyUuidMetadataBaseModel(BaseModel):
@@ -194,49 +187,6 @@ class SiameseUUID:
         return res
 
 
-class Blake3UUID:
-    """AI is creating summary for"""
-
-    shortBlakeUuid = namedtuple("ShortBlakeUUID", ["uuir", "shorted"])
-
-    def __init__(self, context: str) -> None:
-        """# Use the key derivation mode, which takes a context string. Context strings
-            # should be hardcoded, globally unique, and application-specific.
-            Source:https://github.com/oconnor663/blake3-py
-        Args:
-            context (str): [description]
-        """
-        self.context = context
-
-    def _uuid(self, key_mat: str, key_context: bool = False) -> str:
-        """AI is creating summary for _uuid
-
-        Args:
-            key_mat (str): [description]
-            key_context (bool, optional): [description]. Defaults to False.
-
-        Returns:
-            str: [description]
-        """
-
-        _res = blake3(key_mat, derive_key_context=self.context).hex() if key_context else blake3(key_mat).hex()
-        return _res
-
-    def short_uid(self, key_mat: str, length: int = 6) -> namedtuple:
-        """It return an alphabetical short uuid based on blake3 hash.
-
-        Args:
-            _uuid (str): [description]
-            length (int, optional): [description]. Defaults to 6.
-
-        Returns:
-            namedtuple: [description]
-        """
-        _res = self._uuid(key_mat)
-        _shorted = "".join([i.upper() for i in _res[::-1] if i.isalpha][:length])
-        return self.shortBlakeUuid(uuid=_res, shorted=_shorted)
-
-
 def hashlib_uuid(
     data: bytes | str,
     algorithm: str | None = "sha256",
@@ -264,18 +214,6 @@ def hashlib_uuid(
         case _:
             raise TypeError(f"Data should be a string, not: {data}, {type(data)}.")  # noqa: TRY003
     return UUID(bytes=hashlib.pbkdf2_hmac(algorithm, data, salt, iterations, dklen))
-
-
-def normalize_string(salt: str) -> str:
-    """It normalizes input string before hashing it.
-
-    Args:
-        salt (str): [description]
-
-    Returns:
-        str: [description]
-    """
-    pass
 
 
 if __name__ == "__main__":
