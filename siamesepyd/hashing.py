@@ -11,7 +11,7 @@ def hashlib_uuid(
     salt: bytes | None = b"",
     iterations: int | None = 10**6,
     dklen: int | None = 16,
-) -> UUID:
+) -> str:
     """AI is creating summary for hahlib_implementation
 
     Args:
@@ -22,7 +22,7 @@ def hashlib_uuid(
         dklen (int, optional): [description]. Defaults to 16.
 
     Returns:
-        uuid.UUID: [description]
+        str: Hexadecimal string representation of UUID.
     """
     match data:
         case bytes():
@@ -31,4 +31,4 @@ def hashlib_uuid(
             data = data.encode()
         case _:
             raise TypeError(f"Data should be a string, not: {data}, {type(data)}.")  # noqa: TRY003
-    return UUID(bytes=hashlib.pbkdf2_hmac(algorithm, data, salt, iterations, dklen))
+    return UUID(bytes=hashlib.pbkdf2_hmac(algorithm, data, salt, iterations, dklen)).hex
