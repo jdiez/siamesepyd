@@ -74,7 +74,7 @@ class SiameseUUID:
 
     def __init__(
         self,
-        uuid_function: hashlib_uuid,  # Callable = partial(uuid5, NAMESPACE_OID),
+        uuid_function: Callable = hashlib_uuid,  # partial(uuid5, NAMESPACE_OID),
         siamese_length: int = 6,
         key_seed: str = "",
         separator: str = "-",
