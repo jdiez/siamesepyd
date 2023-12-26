@@ -162,11 +162,15 @@ class SiameseUUID:
         """
         try:
             data = str(self._get_key(metadata.salt))
-        except TypeError:
-            logger.error("Metadata salt should be a string.")
-        else:
             g_key = self._siamese(data)
-            siamese_key = f"{metadata.salt}{self.separator}{g_key}"
-            curie = f"{metadata.curie}:{data}"
-            url = f"{metadata.uri}{data}"
+        except TypeError:
+            logger.error("Metadata salt should be a string. {e!s}")
+
+        else:
+            try:
+                siamese_key = f"{metadata.salt}{self.separator}{g_key}"
+                curie = f"{metadata.curie}:{data}"
+                url = f"{metadata.uri}{data}"
+            except AttributeError:
+                logger.error("Attribute not found in metadata. {e!s}")
         return self.SiameseTuple(data, siamese_key, curie, url)
