@@ -17,8 +17,6 @@ def main(
     Siamese = SiameseUUID(key_seed=salt)  # This could be replaced with project uuid.
     print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt=left)))
     print(f"Validated '{left}', '{right}': ", Siamese.validate_keys(left, right))
-    print(f"Validated '{left}', 'ABGZMY': ", Siamese.validate_keys(left, "ABGZMY"))
-    print(f"Validated 'LUNG341', '{right}': ", Siamese.validate_keys("LUNG341", right))
 
 
 if __name__ == "__main__":
