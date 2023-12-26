@@ -148,69 +148,34 @@ class SiameseUUID:
                 raise TypeError(f"Unknown data type: {type(data)}")  # noqa: TRY003
         return result
 
-    def __call__(self, metadata: MyUuidMetadataBaseModel, uri: Uri | None = None) -> str | SiameseTuple:
-        """Implements callable object.
-        This should be refactored, so key serialization is under serialization function (inside or outside the model).
+    def __call__(self, metadata: MyUuidMetadataBaseModel) -> str | SiameseTuple:
+        """Generate a siamese key.
+
+        Args:
+            metadata (MyUuidMetadataBaseModel): object containing salt, other, uri.
 
         Raises:
             TypeError: [description]
 
         Returns:
-            [type]: [description]
+            (str, SiameseTuple): [description]
         """
         try:
             data = str(self._get_key(metadata.salt))
         except TypeError:
             logger.error("Metadata salt should be a string.")
         else:
-            match uri:
-                case Uri.URI:
-                    url = f"{metadata.uri}{data}"
-                    res = url
-                case Uri.CURIE:
-                    curie = f"{metadata.curie}:{data}"
-                    res = curie
-                case Uri.SIAMESE:
-                    g_key = self._siamese(data)
-                    siamese_key = f"{metadata.salt}{self.separator}{g_key}"
-                    res = siamese_key
-                case Uri.ALL:
-                    g_key = self._siamese(data)
-                    siamese_key = f"{metadata.salt}{self.separator}{g_key}"
-                    curie = f"{metadata.curie}:{data}"
-                    url = f"{metadata.uri}{data}"
-                    res = self.SiameseTuple(data, siamese_key, curie, url)
-                case None:
-                    res = data
-                case _:
-                    raise TypeError(f"Unknown uri: {uri}")  # noqa: TRY003
-        return res
+            g_key = self._siamese(data)
+            siamese_key = f"{metadata.salt}{self.separator}{g_key}"
+            curie = f"{metadata.curie}:{data}"
+            url = f"{metadata.uri}{data}"
+        return self.SiameseTuple(data, siamese_key, curie, url)
 
 
 if __name__ == "__main__":
     Siamese = SiameseUUID(key_seed="ENABL")  # This could be replaced with project uuid.
     print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342")))
-    print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.CURIE))
-    print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.URI))
-    print("Siamese key: ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.SIAMESE))
-    print("Proper UUID (uuid5): ", Siamese(MyUuidMetadataBaseModel(salt="LUNG342"), uri=Uri.ALL))
     print("Validated 'LUNG342', 'ABGZMV': ", Siamese.validate_keys("LUNG342", "ABGZMV"))
     print("Validated 'LUNG342', 'ABGZMY': ", Siamese.validate_keys("LUNG342", "ABGZMY"))
     print("Validated 'LUNG341', 'ABGZMV': ", Siamese.validate_keys("LUNG341", "ABGZMV"))
     print("\nExperected output:")
-    print(
-        """
-        Proper UUID (uuid5):  05dff1df16ccf596b3d0950f5e90770b
-        Proper UUID (uuid5):  example:05dff1df16ccf596b3d0950f5e90770b
-        Proper UUID (uuid5):  http://example.org:8000/pid/05dff1df16ccf596b3d0950f5e90770b
-        Siamese key:  LUNG342-ABGZMV
-        Proper UUID (uuid5):  SiameseTuple(uuid='05dff1df16ccf596b3d0950f5e90770b',
-                                            siamese_key='LUNG342-ABGZMV',
-                                            curie='example:05dff1df16ccf596b3d0950f5e90770b',
-                                            url='http://example.org:8000/pid/05dff1df16ccf596b3d0950f5e90770b')
-        Validated 'LUNG342', 'ABGZMV':  True
-        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG342, Right side: ABGZMY
-        Validated 'LUNG342', 'ABGZMY':  False
-        2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG341, Right side: ABGZMV
-        Validated 'LUNG341', 'ABGZMV':  False"""
-    )
