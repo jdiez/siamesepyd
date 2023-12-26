@@ -178,4 +178,3 @@ if __name__ == "__main__":
     print("Validated 'LUNG342', 'ABGZMV': ", Siamese.validate_keys("LUNG342", "ABGZMV"))
     print("Validated 'LUNG342', 'ABGZMY': ", Siamese.validate_keys("LUNG342", "ABGZMY"))
     print("Validated 'LUNG341', 'ABGZMV': ", Siamese.validate_keys("LUNG341", "ABGZMV"))
-    print("\nExperected output:")
