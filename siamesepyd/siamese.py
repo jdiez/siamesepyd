@@ -199,14 +199,14 @@ if __name__ == "__main__":
     print("\nExperected output:")
     print(
         """
-        Proper UUID (uuid5):  3bb405076bf0533181726dfd92b89636
-        Proper UUID (uuid5):  example:3bb405076bf0533181726dfd92b89636
-        Proper UUID (uuid5):  http://example.org:8000/pid/3bb405076bf0533181726dfd92b89636
+        Proper UUID (uuid5):  05dff1df16ccf596b3d0950f5e90770b
+        Proper UUID (uuid5):  example:05dff1df16ccf596b3d0950f5e90770b
+        Proper UUID (uuid5):  http://example.org:8000/pid/05dff1df16ccf596b3d0950f5e90770b
         Siamese key:  LUNG342-DFFDFC
-        Proper UUID (uuid5):  SiameseTuple(uuid='3bb405076bf0533181726dfd92b89636',
+        Proper UUID (uuid5):  SiameseTuple(uuid='05dff1df16ccf596b3d0950f5e90770b',
                                             siamese_key='LUNG342-DFFDFC',
-                                            curie='example:3bb405076bf0533181726dfd92b89636',
-                                            url='http://example.org:8000/pid/3bb405076bf0533181726dfd92b89636')
+                                            curie='example:05dff1df16ccf596b3d0950f5e90770b',
+                                            url='http://example.org:8000/pid/05dff1df16ccf596b3d0950f5e90770b')
         Validated 'LUNG342', 'DFFDFC':  True
         2023-12-21 12:26:38.270 | ERROR    | __main__:validate_keys:74 - Left side: LUNG342, Right side: DFFDFD
         Validated 'LUNG342', 'DFFDFD':  False
