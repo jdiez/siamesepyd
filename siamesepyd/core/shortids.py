@@ -1,4 +1,7 @@
-"""Short ids creation module.
+"""Short ids creation module
+Could be cleaned up to be used in other modules.
+As both modeles use .encode attribute and need to transform or clean input.
+To be done
 """
 
 import string
@@ -16,10 +19,12 @@ class ShortFromUUID:
     def __init__(self, alphabet: str = string.ascii_uppercase, length: int | None = 6) -> None:
         self.alphabet = self._clean_alphabet(alphabet)
         self.length = length
-        shortuuid.set_alphabet(self.alphabet)  # figure out how to set the alphabet cleanly.
+        # shortuuid.set_alphabet(self.alphabet)  # figure out how to set the alphabet cleanly.
+        self.shrtuuid = shortuuid.ShortUUID(alphabet=self.alphabet)
 
     def _clean_alphabet(self, data: str) -> str:
-        """AI is creating summary for _alphabet
+        """Clean non-alphanumeric characters from string.
+            Ideally only uppercase characters should be allowed, as default alphabet is ascii_uppercase.
 
         Args:
             data (str): [description]
@@ -31,8 +36,7 @@ class ShortFromUUID:
             res = "".join({i for i in data if i.isalnum()})
         except TypeError as e:
             logger.error(f"Data should be a string. {e!s}")
-        else:
-            return res
+        return res
 
     def __call__(self, data: str | UUID) -> str:
         """AI is creating summary for __call__
@@ -57,9 +61,9 @@ class ShortFromUUID:
 
             case _:
                 raise TypeError(f"Unknown uuid: {data} format.")  # noqa: TRY003
-        data_length = len(str(data))
+        _short = str(self.shrtuuid.encode(data))
+        data_length = len(str(_short))
         length = min(data_length, self.length) if self.length is not None else data_length
-        _short = shortuuid.encode(data)
         return _short[:length]
 
 
@@ -92,11 +96,10 @@ class SeqIds:
             str: [description]
         """
         try:
-            _res = "".join({[i for i in data if i.isalnum()]})
+            _res = "".join({i for i in data if i.isalnum()})
         except TypeError as e:
             logger.error(f"Data should be a string. {e!s}")
-        else:
-            return _res
+        return _res
 
     def __call__(self, data: str) -> str:
         """AI is creating summary for __call__
@@ -113,4 +116,4 @@ class SeqIds:
             logger.error(f"Data should be a string. {e!s}")
         else:
             length = min(len(res), self.length) if self.length is not None else len(res)
-            return res[:length]
+        return str(res[:length])
