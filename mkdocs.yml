@@ -5,19 +5,26 @@ site_description: Package to build persistent identifiers and resilient pids.
 site_author: Javier Díez Pérez
 edit_uri: edit/main/docs/
 repo_name: jdiezperezj/siamesepyd
-copyright: Maintained by <a href="https://jdiezperezj.com">Florian</a>.
+copyright: Maintained by <a href="https://jdiezperezj.com">Javier Díez  </a>.
 
 nav:
   - Home: index.md
   - Modules: modules.md
+
 plugins:
   - search
+  - gen-files:
+      scripts:
+        - siamesepyd/bin/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
   - mkdocstrings:
       handlers:
         python:
-            setup_commands:
-                - import sys
-                - sys.path.append('../')
+          setup_commands:
+            - import sys
+            - sys.path.append('siamesepyd')
 theme:
   name: material
   feature:

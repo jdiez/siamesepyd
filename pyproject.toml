@@ -30,6 +30,10 @@ deptry = "^0.12.0"
 mypy = "^1.5.1"
 pre-commit = "^3.4.0"
 tox = "^4.11.1"
+mkdocs-gen-files = "^0.5.0"
+mkdocs-literate-nav = "^0.6.1"
+mkdocs-section-index = "^0.3.8"
+mkdocstrings-python = "^1.7.5"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.4.2"
