@@ -109,8 +109,7 @@ class SiameseUUID:
             result = self.uuid(self.key_seed + data)
         except TypeError as e:
             logger.error(f"Data should be a string. {e!s}")
-        else:
-            return result
+        return result
 
     def validate_keys(self, left_side: str, right_side: str) -> bool:
         """Validata siamese keys.
@@ -143,7 +142,7 @@ class SiameseUUID:
                 raise TypeError(f"Unknown data type: {type(data)}")  # noqa: TRY003
         return result
 
-    def __call__(self, metadata: MyUuidMetadataBaseModel) -> str | SiameseTuple:
+    def __call__(self, metadata: MyUuidMetadataBaseModel) -> SiameseTuple:
         """Generate a siamese key.
 
         Args:
@@ -153,7 +152,7 @@ class SiameseUUID:
             TypeError: [description]
 
         Returns:
-            (str, SiameseTuple): [description]
+            (SiameseTuple): [description]
         """
         try:
             data = str(self._get_key(metadata.salt))
