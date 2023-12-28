@@ -17,7 +17,7 @@ plugins:
       scripts:
         - siamesepyd/bin/gen_ref_pages.py
   - literate-nav:
-      nav_file: SUMMARY.md
+      nav_file: index.md, SUMMARY.md
   - section-index
   - mkdocstrings:
       handlers:

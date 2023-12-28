@@ -1,4 +1,6 @@
-"""Generate the code reference pages and navigation."""
+"""Generate the code reference pages and navigation.
+    To be generalised and up
+"""
 
 from pathlib import Path
 
@@ -43,6 +45,6 @@ for path in sorted(src.rglob("*.py")):
     logger.debug("path: " + str(path))
     mkdocs_gen_files.set_edit_path(full_doc_path, path)
 
-logger.debug(dsrc / "docs/SUMMARY.md")
-with mkdocs_gen_files.open(dsrc / "docs/SUMMARY.md", "w") as nav_file:
+logger.debug(dsrc / "docs/modules.md")
+with mkdocs_gen_files.open(dsrc / "docs/modules.md", "w") as nav_file:
     nav_file.writelines(nav.build_literate_nav())
