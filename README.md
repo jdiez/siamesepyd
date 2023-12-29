@@ -8,8 +8,8 @@
 
 Package to build persistent identifiers and resilient pids.
 
-- **Github repository**: <https://github.com/jdiezperezj/siamesepyd/>
-- **Documentation** <https://jdiezperezj.github.io/siamesepyd/>
+- **Github repository**: <https://github.com/jdiez/siamesepyd/>
+- **Documentation** <https://jdiez.github.io/siamesepyd/>
 
 ## Getting started with your project
 

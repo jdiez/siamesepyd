@@ -58,8 +58,7 @@ class MyUuidMetadataBaseModel(BaseModel):
         [type]: [description]
     """
 
-    salt: str | None = "uno"
-    other: str | None = "dos"
+    salt: str = "uno"
     uri: HttpUrl = "http://example.org:8000/pid/"
     curie: str | None = "example"
 
@@ -109,7 +108,7 @@ class SiameseUUID:
             result = self.uuid(self.key_seed + data)
         except TypeError as e:
             logger.error(f"Data should be a string. {e!s}")
-        return result
+        return result if isinstance(result, UUID) else UUID(result)
 
     def validate_keys(self, left_side: str, right_side: str) -> bool:
         """Validata siamese keys.
@@ -140,7 +139,7 @@ class SiameseUUID:
                 result = self.siamese_function(data.hex)
             case _:
                 raise TypeError(f"Unknown data type: {type(data)}")  # noqa: TRY003
-        return result
+        return str(result)
 
     def __call__(self, metadata: MyUuidMetadataBaseModel) -> SiameseTuple:
         """Generate a siamese key.
