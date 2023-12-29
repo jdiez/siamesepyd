@@ -6,3 +6,6 @@
 [![License](https://img.shields.io/github/license/jdiezperezj/siamesepyd)](https://img.shields.io/github/license/jdiezperezj/siamesepyd)
 
 Package to build persistent identifiers and resilient pids.
+
+- **Github repository**: <https://github.com/jdiez/siamesepyd/>
+- **Documentation** <https://jdiez.github.io/siamesepyd/>

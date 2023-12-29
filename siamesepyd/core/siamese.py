@@ -60,7 +60,7 @@ class MyUuidMetadataBaseModel(BaseModel):
 
     salt: str | None = "uno"
     other: str | None = "dos"
-    uri: HttpUrl | None = "http://example.org:8000/pid/"
+    uri: HttpUrl = "http://example.org:8000/pid/"
     curie: str | None = "example"
 
 
