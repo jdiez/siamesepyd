@@ -24,7 +24,6 @@ __license__ = "Apache License 2.0"
 
 
 from collections import namedtuple
-from enum import Enum
 from typing import Callable
 from uuid import UUID
 
@@ -35,17 +34,16 @@ from siamesepyd.core.hashing import hashlib_uuid
 from siamesepyd.core.shortids import ShortFromUUID
 
 
-class Uri(Enum):
-    """AI is creating summary for Uri
+class SiameseResult(BaseModel):
+    """AI is creating summary for SiameseResult
 
     Args:
-        Enum ([type]): [description]
-    """
+        BaseModel ([type]): [description]"""
 
-    CURIE = "curie"
-    URI = "uri"
-    SIAMESE = "siamese"
-    ALL = "all"
+    data: str
+    siamese_key: str
+    curie: str  # define curie as specific type (constr with specific regex).
+    url: HttpUrl
 
 
 class MyUuidMetadataBaseModel(BaseModel):

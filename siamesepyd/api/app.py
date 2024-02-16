@@ -20,13 +20,13 @@ class Item(BaseModel):
 app = FastAPI(
     title="Siamese Keys",
     description="Siamese Keys API at AZ.",  # could be markdown and render as html.
-    summary="Deadpool's favorite app. Nuff said.",
+    summary="Amazing Siamese Keys API",
     version="0.0.1",
     terms_of_service="http://example.com/terms/",
     contact={
-        "name": "Deadpoolio the Amazing",
+        "name": "Amazing Siamese Keys API",
         "url": "http://x-force.example.com/contact/",
-        "email": "dp@x-force.example.com",
+        "email": "jdiezperezj@gmail.com",
     },
     license_info={
         "name": "Apache 2.0",
